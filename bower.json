@@ -1,0 +1,21 @@
+{
+  "name": "locoroco",
+  "version": "0.0.1",
+  "homepage": "https://github.com/kkoscielniak/locoroco",
+  "authors": [
+    "Krystian Kościelniak <krystiankoscielniak@gmail.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vue": "^1.0.8",
+    "vue-resource": "0.1.17"
+  }
+}
