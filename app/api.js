@@ -187,6 +187,70 @@ api.get('/heat_down', function(req, res) {
     });
 });
 
+api.get('/pump', function(req, res) {
+    url = greenhouseIp + '/pump';
+    request(url, function(error, response, html) {
+        if (error) {
+            console.log(error);
+        } else {
+            res.json({
+                message: 'OK'
+            });
+        }
+    });
+});
+
+api.get('/pump_time', function(req, res) {
+    url = greenhouseIp + '/p_pump';
+    request(url, function(error, response, html) {
+        if (error) {
+            console.log(error);
+        } else {
+            var $ = cheerio.load(html);
+
+            res.json({
+                message: $('body').html()
+            });
+        }
+    });
+});
+
+api.get('/pump_up', function(req, res) {
+    url = greenhouseIp + '/pump_up';
+    request(url, function(error, response, html) {
+        if (error) {
+            console.log(error);
+        } else {
+            url = greenhouseIp + '/p_pump';
+            request(url, function(error, response, html) {
+                var $ = cheerio.load(html);
+
+                res.json({
+                    message: $('body').html()
+                });
+            });
+        }
+    });
+});
+
+api.get('/pump_down', function(req, res) {
+    url = greenhouseIp + '/pump_down';
+    request(url, function(error, response, html) {
+        if (error) {
+            console.log(error);
+        } else {
+            url = greenhouseIp + '/p_pump';
+            request(url, function(error, response, html) {
+                var $ = cheerio.load(html);
+
+                res.json({
+                    message: $('body').html()
+                });
+            });
+        }
+    });
+});
+
 
 
 module.exports = api;

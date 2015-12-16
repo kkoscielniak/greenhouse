@@ -13,6 +13,11 @@ var config = {
     HEAT: '/api/heat',
     HEAT_UP: '/api/heat_up',
     HEAT_DOWN: '/api/heat_down',
+
+    RUN_PUMP: '/api/pump',
+    PUMP_UP: '/api/pump_up',
+    PUMP_DOWN: '/api/pump_down',
+    PUMP_TIME: '/api/pump_time'
 };
 
 var lightToggles = new Vue({
@@ -30,7 +35,7 @@ var lightToggles = new Vue({
                    this.lightSensitivity = res.message;
                 })
                 .error(function(err){
-                    console.err(err);
+                    console.error(err);
                 });
         },
 
@@ -40,7 +45,7 @@ var lightToggles = new Vue({
                     this.lightSensitivity = res.message;
                 })
                 .error(function(err){
-                    console.err(err);
+                    console.error(err);
                 });
         },
 
@@ -50,7 +55,7 @@ var lightToggles = new Vue({
                     this.lightSensitivity = res.message;
                 })
                 .error(function(err){
-                    console.err(err);
+                    console.error(err);
                 });
         },
 
@@ -60,7 +65,7 @@ var lightToggles = new Vue({
                    this.lightSensitivity = parseInt(res.message);
                 })
                 .error(function(err){
-                    console.err(err);
+                    console.error(err);
                 });
         }
     },
@@ -86,7 +91,7 @@ var statusTable = new Vue({
                     this.lightIntensity = res.message;
                 })
                 .error(function(err){
-                    console.err(err);
+                    console.error(err);
                 });
 
             this.$http.get(config.TEMP)
@@ -94,7 +99,7 @@ var statusTable = new Vue({
                     this.temp = res.message;
                 })
                 .error(function(err){
-                    console.err(err);
+                    console.error(err);
                 });
 
             this.$http.get(config.AIR_HUMIDITY) // @todo
@@ -102,7 +107,7 @@ var statusTable = new Vue({
                     this.humidity = res.message;
                 })
                 .error(function(err){
-                    console.err(err);
+                    console.error(err);
                 });
         }
     },
@@ -152,7 +157,7 @@ var heatToggles = new Vue({
                    this.heat = res.message;
                 })
                 .error(function(err){
-                    console.err(err);
+                    console.error(err);
                 });
         },
 
@@ -162,7 +167,7 @@ var heatToggles = new Vue({
                     this.heat = res.message;
                 })
                 .error(function(err){
-                    console.err(err);
+                    console.error(err);
                 });
         },
 
@@ -172,12 +177,66 @@ var heatToggles = new Vue({
                     this.heat = res.message;
                 })
                 .error(function(err){
-                    console.err(err);
+                    console.error(err);
                 });
-        },
+        }
     },
 
     ready: function() {
         this.getHeat();
+    }
+});
+
+var pumpToggles = new Vue({
+    el: '#pumpToggles',
+    data: {
+        pumpTime: 0
+    },
+
+    methods: {
+        runPump: function() {
+            this.$http.get(config.RUN_PUMP)
+                .success(function(res){
+                   console.log('Pump running');
+                })
+                .error(function(err){
+                    console.error(err);
+                });
+        },
+
+        getPumpTime: function() {
+            this.$http.get(config.PUMP_TIME)
+                .success(function(res){
+                    console.log(res);
+                    this.pumpTime = res.message;
+                })
+                .error(function(err){
+                    console.error(err);
+                });
+        },
+
+        pumpTimeUp: function() {
+            this.$http.get(config.PUMP_UP)
+                .success(function(res){
+                    this.pumpTime = res.message;
+                })
+                .error(function(err){
+                    console.error(err);
+                });
+        },
+
+        pumpTimeDown: function() {
+            this.$http.get(config.PUMP_DOWN)
+                .success(function(res){
+                    this.pumpTime = res.message;
+                })
+                .error(function(err){
+                    console.error(err);
+                });
+        }
+    },
+
+    ready: function() {
+        this.getPumpTime();
     }
 });
