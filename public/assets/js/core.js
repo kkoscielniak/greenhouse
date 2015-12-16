@@ -1,18 +1,17 @@
 Vue.config.debug = true;
 
 var config = {
-    LIGHTS: 'http://192.168.1.141/light',
-    LIGHT_UP: 'http://192.168.1.141/light_up',
-    LIGHT_DOWN: 'http://192.168.1.141/light_down',
-    // LIGHT_INTENSITIVITY: 'http://192.168.1.141/p_light'
-    LIGHT_INTENSITIVITY: 'assets/mocks/light-intensivity.html',
-    LIGHT_MEASURE: 'assets/mocks/light-intensivity.html',
-    TEMP: 'assets/mocks/light-intensivity.html',
-    AIR_HUMIDITY: 'assets/mocks/light-intensivity.html'
+    LIGHTS: '/api/light',
+    LIGHT_UP: '/api/light_up',
+    LIGHT_DOWN: '/api/light_down',
+    LIGHT_INTENSITIVITY: '/api/p_light',
 
+    LIGHT_MEASURE: '/api/light_measure',
+    TEMP: '/api/temp',
+    AIR_HUMIDITY: '/api/humidity'
 };
 
-new Vue({
+var lightToggles = new Vue({
     el: '#lightToggles',
 
     data: {
@@ -25,6 +24,7 @@ new Vue({
             this.$http.get(config.LIGHTS)
                 .success(function(res){
                     console.log(res);
+                    this.lightSensitivity = res.message;
                 })
                 .error(function(err){
                     console.log(err);
@@ -36,7 +36,7 @@ new Vue({
                 .success(function(res){
                     console.log(res);
 
-                    this.getLightsIntensivity();
+                    this.lightSensitivity = res.message;
                 })
                 .error(function(err){
                     console.log(err);
@@ -48,7 +48,7 @@ new Vue({
                 .success(function(res){
                     console.log(res);
 
-                    this.getLightsIntensivity();
+                    this.lightSensitivity = res.message;
                 })
                 .error(function(err){
                     console.log(err);
@@ -59,7 +59,8 @@ new Vue({
             this.$http.get(config.LIGHT_INTENSITIVITY)
                 .success(function(res){
 
-                    this.lightSensitivity = parseInt(res);
+                    console.log(res);
+                    this.lightSensitivity = parseInt(res.message);
                 })
                 .error(function(err){
                     console.log(err);
@@ -81,32 +82,65 @@ var statusTable = new Vue({
         humidity: 0
     },
 
+    methods: {
+        checkEverything: function() {
+            this.$http.get(config.LIGHT_MEASURE)
+                .success(function(res){
+                    this.lightIntensity = res.message;
+                })
+                .error(function(err){
+                    console.log(err);
+                });
+
+            this.$http.get(config.TEMP)
+                .success(function(res){
+
+                    this.temp = res.message;
+                })
+                .error(function(err){
+                    console.log(err);
+                });
+
+            this.$http.get(config.AIR_HUMIDITY) // @todo
+                .success(function(res){
+
+                    this.humidity = res.message;
+                })
+                .error(function(err){
+                    console.log(err);
+                });
+        }
+    },
+
     ready: function() {
-        this.$http.get(config.LIGHT_MEASURE)  // @todo
-            .success(function(res){
-
-                this.lightIntensity = parseInt(res);
-            })
-            .error(function(err){
-                console.log(err);
-            });
-
-        this.$http.get(config.TEMP) // @todo
-            .success(function(res){
-
-                this.temp = parseInt(res);
-            })
-            .error(function(err){
-                console.log(err);
-            });
-
-        this.$http.get(config.AIR_HUMIDITY) // @todo
-            .success(function(res){
-
-                this.humidity = parseInt(res);
-            })
-            .error(function(err){
-                console.log(err);
-            });
+        this.checkEverything();
+        var that = this;
+        setInterval(function(){
+            that.checkEverything();
+        }, 1000);
     }
 });
+
+var clock = new Vue({
+    el: '#clock',
+    data: {
+        time: null,
+        date: null
+    },
+
+    methods: {
+        setDateTime: function() {
+            this.time = moment().format("HH:mm:ss");
+            this.date = moment().format("YYYY-MM-DD");
+        }
+    },
+
+    ready: function() {
+        this.setDateTime();
+        var that = this;
+        setInterval(function(){
+            that.setDateTime();
+        }, 1000);
+    }
+});
+
