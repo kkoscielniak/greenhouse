@@ -136,7 +136,7 @@ api.get('/humidity', function(req, res) {
 });
 
 api.get('/heat', function(req, res) {
-    url = greenhouseIp + '/heat';
+    url = greenhouseIp + '/p_heat';
 
     request(url, function(error, response, html) {
        if (error) {
@@ -149,6 +149,42 @@ api.get('/heat', function(req, res) {
            });
        }
    });
+});
+
+api.get('/heat_up', function(req, res) {
+    url = greenhouseIp + '/heat_up';
+    request(url, function(error, response, html) {
+        if (error) {
+            console.log(error);
+        } else {
+            url = greenhouseIp + '/p_heat';
+            request(url, function(error, response, html) {
+                var $ = cheerio.load(html);
+
+                res.json({
+                    message: $('body').html()
+                });
+            });
+        }
+    });
+});
+
+api.get('/heat_down', function(req, res) {
+    url = greenhouseIp + '/heat_down';
+    request(url, function(error, response, html) {
+        if (error) {
+            console.log(error);
+        } else {
+            url = greenhouseIp + '/p_heat';
+            request(url, function(error, response, html) {
+                var $ = cheerio.load(html);
+
+                res.json({
+                    message: $('body').html()
+                });
+            });
+        }
+    });
 });
 
 

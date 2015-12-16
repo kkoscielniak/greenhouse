@@ -8,7 +8,11 @@ var config = {
 
     LIGHT_MEASURE: '/api/light_measure',
     TEMP: '/api/temp',
-    AIR_HUMIDITY: '/api/humidity'
+    AIR_HUMIDITY: '/api/humidity',
+
+    HEAT: '/api/heat',
+    HEAT_UP: '/api/heat_up',
+    HEAT_DOWN: '/api/heat_down',
 };
 
 var lightToggles = new Vue({
@@ -23,47 +27,40 @@ var lightToggles = new Vue({
         lights: function() {
             this.$http.get(config.LIGHTS)
                 .success(function(res){
-                    console.log(res);
-                    this.lightSensitivity = res.message;
+                   this.lightSensitivity = res.message;
                 })
                 .error(function(err){
-                    console.log(err);
+                    console.err(err);
                 });
         },
 
         lightsUp: function() {
             this.$http.get(config.LIGHT_UP)
                 .success(function(res){
-                    console.log(res);
-
                     this.lightSensitivity = res.message;
                 })
                 .error(function(err){
-                    console.log(err);
+                    console.err(err);
                 });
         },
 
         lightsDown: function() {
             this.$http.get(config.LIGHT_DOWN)
                 .success(function(res){
-                    console.log(res);
-
                     this.lightSensitivity = res.message;
                 })
                 .error(function(err){
-                    console.log(err);
+                    console.err(err);
                 });
         },
 
         getLightsIntensivity: function() {
             this.$http.get(config.LIGHT_INTENSITIVITY)
                 .success(function(res){
-
-                    console.log(res);
-                    this.lightSensitivity = parseInt(res.message);
+                   this.lightSensitivity = parseInt(res.message);
                 })
                 .error(function(err){
-                    console.log(err);
+                    console.err(err);
                 });
         }
     },
@@ -89,25 +86,23 @@ var statusTable = new Vue({
                     this.lightIntensity = res.message;
                 })
                 .error(function(err){
-                    console.log(err);
+                    console.err(err);
                 });
 
             this.$http.get(config.TEMP)
                 .success(function(res){
-
                     this.temp = res.message;
                 })
                 .error(function(err){
-                    console.log(err);
+                    console.err(err);
                 });
 
             this.$http.get(config.AIR_HUMIDITY) // @todo
                 .success(function(res){
-
                     this.humidity = res.message;
                 })
                 .error(function(err){
-                    console.log(err);
+                    console.err(err);
                 });
         }
     },
@@ -144,3 +139,45 @@ var clock = new Vue({
     }
 });
 
+var heatToggles = new Vue({
+    el: '#heatToggles',
+    data: {
+        heat: 0
+    },
+
+    methods: {
+        getHeat: function() {
+            this.$http.get(config.HEAT)
+                .success(function(res){
+                   this.heat = res.message;
+                })
+                .error(function(err){
+                    console.err(err);
+                });
+        },
+
+        heatUp: function() {
+            this.$http.get(config.HEAT_UP)
+                .success(function(res){
+                    this.heat = res.message;
+                })
+                .error(function(err){
+                    console.err(err);
+                });
+        },
+
+        heatDown: function() {
+            this.$http.get(config.HEAT_DOWN)
+                .success(function(res){
+                    this.heat = res.message;
+                })
+                .error(function(err){
+                    console.err(err);
+                });
+        },
+    },
+
+    ready: function() {
+        this.getHeat();
+    }
+});
