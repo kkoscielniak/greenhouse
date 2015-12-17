@@ -67,6 +67,10 @@ var lightToggles = new Vue({
                 .error(function(err){
                     console.error(err);
                 });
+        },
+
+        debug: function() {
+            console.log('debug');
         }
     },
 

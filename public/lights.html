@@ -7,6 +7,8 @@
         <meta name="format-detection" content="telephone=no">
 
         <link rel="stylesheet" href="/assets/vendors/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="/assets/vendors/clockpicker/dist/bootstrap-clockpicker.min.css">
+        <link rel="stylesheet" href="/assets/vendors/clockpicker/dist/jquery-clockpicker.min.css">
     </head>
     <body>
         <div class="container">
@@ -38,8 +40,21 @@
                         </div>
 
                         <h4>Automatic</h4>
-                        [...]
+                        Start time:
+                        <div class="input-group clockpicker">
+                            <input type="text" class="form-control" value="00:00" @change="debug()">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                        </div>
 
+                        End time:
+                        <div class="input-group clockpicker">
+                            <input type="text" class="form-control" value="00:00">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                        </div>
 
                         <h3>
                             Lights power: {{ lightSensitivity }} %
@@ -79,12 +94,19 @@
 
         <!-- JQuery -->
         <script type="text/javascript" src="/assets/vendors/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="/assets/vendors/clockpicker/dist/jquery-clockpicker.min.js"></script>
 
         <!-- moment -->
         <script type="text/javascript" src="/assets/vendors/moment/min/moment.min.js"></script>
 
         <!-- Bootstrap CDN -->
         <script src="/assets/vendors/bootstrap/dist/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="/assets/vendors/clockpicker/dist/bootstrap-clockpicker.min.js"></script>
+        <script type="text/javascript">
+            $('.clockpicker').clockpicker({
+                donetext: 'Done'
+            });
+        </script>
 
         <!-- Vue -->
         <script type="text/javascript" src="/assets/vendors/vue/dist/vue.min.js"></script>
