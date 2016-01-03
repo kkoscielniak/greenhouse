@@ -108,7 +108,7 @@ api.post('/light_start', function(req, res) {
     var cronEntry = req.body.min + ' ' + req.body.hour + ' * * *';
 
     var job = scheduler.scheduleJob(cronEntry, function(){
-        url = greenhouseIp + '/light_up';
+        url = greenhouseIp + '/light';
 
         request(url, function(error, response, html) {
             if (error) {
@@ -126,7 +126,7 @@ api.post('/light_end', function(req, res) {
     var cronEntry = req.body.min + ' ' + req.body.hour + ' * * *';
 
     var job = scheduler.scheduleJob(cronEntry, function(){
-        url = greenhouseIp + '/light_down';
+        url = greenhouseIp + '/light';
         request(url, function(error, response, html) {
             if (error) {
                 console.log(error);

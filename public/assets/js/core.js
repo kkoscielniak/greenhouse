@@ -110,7 +110,10 @@ var lightToggles = new Vue({
         endTime: function(val, oldVal) {
             var time = val.split(':');
 
-            this.$http.post(config.LIGHT_END_TIME, { time: time })
+            this.$http.post(config.LIGHT_END_TIME, {
+                    hour: time[0],
+                    min: time[1]
+                })
                 .success(function(res){
                    console.log(res);
                 })
