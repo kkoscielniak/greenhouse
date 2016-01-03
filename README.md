@@ -1,5 +1,5 @@
 # greenhouse.js
-dangerous prototype of an app controlling simple greenhouse microprocessor system. Uses [node.js](http://nodejs.org/) and [vue.js](http://vuejs.org/). It's not even tested, so I would recommend carefulness.
+__dangerous prototype__ of an web-based app controlling simple greenhouse microprocessor system. Uses [node.js](http://nodejs.org/) and [vue.js](http://vuejs.org/). It's not even tested, so I would recommend carefulness.
 
 ## installation
 1. install [node.js](http://nodejs.org/) (tested on v4.0.0)
