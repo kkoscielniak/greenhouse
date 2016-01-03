@@ -17,10 +17,41 @@
                 </h1>
             </div>
             <div id="toggles" class="row">
-                <div class="col-lg-12" style="text-align: center">
+                <div class="col-xs-12 col-lg-4">
+                    <div id="clock">
+                        <h3>
+                            {{ time }}
+                            <small>{{ date }}</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-lg-4" style="text-align: center; margin-top: 50px">
                     <a class="btn btn-default" href="/lights.html">Lights</a><br><br>
                     <a class="btn btn-default" href="/pump.html">Pump</a><br><br>
                     <a class="btn btn-default" href="/heat.html">Heat</a><br><br>
+                </div>
+                <div class="col-xs-12 col-lg-4">
+                    <div id="statusTable">
+                        <h3>
+                            Status
+                        </h3>
+                        <table class="table table table-striped">
+                            <tbody>
+                               <tr>
+                                  <td colspan="2">Light intensity</td>
+                                  <td>{{ lightIntensity }}%</td>
+                               </tr>
+                               <tr>
+                                  <td colspan="2">Temperature</td>
+                                  <td>{{ temp }}*C</td>
+                               </tr>
+                               <tr>
+                                  <td colspan="2">Humidity</td>
+                                  <td>{{ humidity }}%</td>
+                               </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
