@@ -1,6 +1,7 @@
 var express = require('express'),
     request = require('request'),
     cheerio = require('cheerio');
+    scheduler = require('node-schedule');
 
 var api = express.Router();
 
@@ -101,6 +102,41 @@ api.get('/light_measure', function(req, res) {
             });
         }
     });
+});
+
+api.post('/light_start', function(req, res) {
+    var cronEntry = req.body.min + ' ' + req.body.hour + ' * * *';
+
+    var job = scheduler.scheduleJob(cronEntry, function(){
+        url = greenhouseIp + '/light_up';
+
+        request(url, function(error, response, html) {
+            if (error) {
+                console.log(error);
+            }
+        });
+    });
+
+    res.json({
+        messate: 'OK'
+    })
+});
+
+api.post('/light_end', function(req, res) {
+    var cronEntry = req.body.min + ' ' + req.body.hour + ' * * *';
+
+    var job = scheduler.scheduleJob(cronEntry, function(){
+        url = greenhouseIp + '/light_down';
+        request(url, function(error, response, html) {
+            if (error) {
+                console.log(error);
+            }
+        });
+    });
+
+    res.json({
+        messate: 'OK'
+    })
 });
 
 api.get('/temp', function(req, res) {

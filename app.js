@@ -10,6 +10,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(function(req, res, next) {
     var auth;
 
@@ -19,7 +20,7 @@ app.use(function(req, res, next) {
 
     if (!auth || auth[0] !== 'user' || auth[1] !== 'pass') {
         res.statusCode = 401;
-        res.setHeader('WWW-Authenticate', 'Basic realm="MyRealmName"');
+        res.setHeader('WWW-Authenticate', 'Basic realm="Greenhouse"');
         res.end('Unauthorized');
     } else {
         next();
@@ -27,10 +28,8 @@ app.use(function(req, res, next) {
 });
 require('./app/routes.js')(app);
 
-
-
 var api = require('./app/api.js');
 app.use('/api', api);
 
 app.listen(port);
-console.log('Magic happens at port ' + port);
+console.log('Magic happens at http://localhost:' + port + '/');
