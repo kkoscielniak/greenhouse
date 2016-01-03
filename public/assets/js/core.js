@@ -17,15 +17,15 @@ var config = {
     RUN_PUMP: '/api/pump',
     PUMP_UP: '/api/pump_up',
     PUMP_DOWN: '/api/pump_down',
-    PUMP_TIME: '/api/pump_time'
+    PUMP_TIME: '/api/pump_time',
+    LIGHT_START_TIME: '/api/light_start',
+    LIGHT_END_TIME: '/api/light_end',
 
     // // debug
     // LIGHTS: '/assets/mocks/light-intensivity.html',
     // LIGHT_UP: '/assets/mocks/light-intensivity.html',
     // LIGHT_DOWN: '/assets/mocks/light-intensivity.html',
     // LIGHT_INTENSITIVITY: '/assets/mocks/light-intensivity.html',
-    LIGHT_START_TIME: '/api/light_start',
-    LIGHT_END_TIME: '/api/light_end',
 
     // LIGHT_MEASURE: '/assets/mocks/light-intensivity.html',
     // TEMP: '/assets/mocks/light-intensivity.html',
