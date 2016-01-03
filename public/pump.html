@@ -46,10 +46,10 @@
                             <a class="btn btn-default" @click="runPump()">Run pump</a>
                         </div>
 
-                        <h4>Timetable</h4>
-                        Add new time
+                        <h4>Automatic</h4>
+                        Start time:
                         <div class="input-group clockpicker">
-                            <input type="text" class="form-control" value="00:00" @change="debug()">
+                            <input type="text" class="form-control" v-model="startTime" value="00:00">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-time"></span>
                             </span>

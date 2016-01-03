@@ -5,8 +5,10 @@ var config = {
     LIGHT_UP: '/api/light_up',
     LIGHT_DOWN: '/api/light_down',
     LIGHT_INTENSITIVITY: '/api/p_light',
-
     LIGHT_MEASURE: '/api/light_measure',
+    LIGHT_START_TIME: '/api/light_start',
+    LIGHT_END_TIME: '/api/light_end',
+
     TEMP: '/api/temp',
     AIR_HUMIDITY: '/api/humidity',
 
@@ -18,8 +20,8 @@ var config = {
     PUMP_UP: '/api/pump_up',
     PUMP_DOWN: '/api/pump_down',
     PUMP_TIME: '/api/pump_time',
-    LIGHT_START_TIME: '/api/light_start',
-    LIGHT_END_TIME: '/api/light_end',
+    PUMP_START_TIME: '/api/pump_start_time'
+
 
     // // debug
     // LIGHTS: '/assets/mocks/light-intensivity.html',
@@ -287,6 +289,24 @@ var pumpToggles = new Vue({
                 .error(function(err){
                     console.error(err);
                 });
+        }
+    },
+
+    watch: {
+        startTime: function(val, oldVal) {
+            var time = val.split(':');
+
+            this.$http.post(config.PUMP_START_TIME, {
+                    hour: time[0],
+                    min: time[1]
+                }
+            )
+            .success(function(res){
+               console.log(res);
+            })
+            .error(function(err){
+                console.error(err);
+            });
         }
     },
 

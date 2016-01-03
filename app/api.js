@@ -33,7 +33,6 @@ api.get('/p_light', function(req, res) {
 });
 
 api.get('/light', function(req, res) {
-
     url = greenhouseIp + '/light';
     request(url, function(error, response, html) {
         if (error) {
@@ -286,5 +285,24 @@ api.get('/pump_down', function(req, res) {
         }
     });
 });
+
+api.post('/pump_start_time', function(req, res) {
+    var cronEntry = req.body.min + ' ' + req.body.hour + ' * * *';
+
+    var job = scheduler.scheduleJob(cronEntry, function(){
+        url = greenhouseIp + '/pump';
+
+        request(url, function(error, response, html) {
+            if (error) {
+                console.log(error);
+            }
+        });
+    });
+
+    res.json({
+        messate: 'OK'
+    })
+});
+
 
 module.exports = api;
